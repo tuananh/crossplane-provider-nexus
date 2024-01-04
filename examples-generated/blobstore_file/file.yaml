@@ -1,0 +1,14 @@
+apiVersion: blobstore_file.tuananh.net/v1alpha1
+kind: File
+metadata:
+  annotations:
+    meta.upbound.io/example-id: blobstore_file/v1alpha1/file
+  labels:
+    testing.upbound.io/example-name: file
+  name: file
+spec:
+  forProvider:
+    path: /nexus-data/blobstore-file
+    softQuota:
+    - limit: 1024000000
+      type: spaceRemainingQuota

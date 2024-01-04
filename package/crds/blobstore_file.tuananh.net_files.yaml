@@ -4,18 +4,18 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.13.0
-  name: resources.null.template.upbound.io
+  name: files.blobstore_file.tuananh.net
 spec:
-  group: null.template.upbound.io
+  group: blobstore_file.tuananh.net
   names:
     categories:
     - crossplane
     - managed
-    - template
-    kind: Resource
-    listKind: ResourceList
-    plural: resources
-    singular: resource
+    - nexus
+    kind: File
+    listKind: FileList
+    plural: files
+    singular: file
   scope: Cluster
   versions:
   - additionalPrinterColumns:
@@ -34,10 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Resource is the Schema for the Resources API. The null_resource
-          resource implements the standard resource lifecycle but takes no further
-          action. The triggers argument allows specifying an arbitrary set of values
-          that, when changed, will cause the resource to be replaced.
+        description: File is the Schema for the Files API. Use this resource to create
+          a Nexus file blobstore.
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -52,7 +50,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: ResourceSpec defines the desired state of Resource
+            description: FileSpec defines the desired state of File
             properties:
               deletionPolicy:
                 default: Delete
@@ -69,13 +67,28 @@ spec:
                 type: string
               forProvider:
                 properties:
-                  triggers:
-                    additionalProperties:
-                      type: string
-                    description: A map of arbitrary strings that, when changed, will
-                      force the null resource to be replaced, re-running any associated
-                      provisioners.
-                    type: object
+                  path:
+                    description: work directory The path to the blobstore contents.
+                      This can be an absolute path to anywhere on the system nxrm
+                      has access to or it can be a path relative to the sonatype-work
+                      directory
+                    type: string
+                  softQuota:
+                    description: '(Block List, Max: 1) Soft quota of the blobstore
+                      (see below for nested schema) Soft quota of the blobstore'
+                    items:
+                      properties:
+                        limit:
+                          description: (Number) The limit in Bytes. Minimum value
+                            is 1000000 The limit in Bytes. Minimum value is 1000000
+                          type: number
+                        type:
+                          description: (String) The type to use such as spaceRemainingQuota,
+                            or spaceUsedQuota The type to use such as spaceRemainingQuota,
+                            or spaceUsedQuota
+                          type: string
+                      type: object
+                    type: array
                 type: object
               initProvider:
                 description: THIS IS A BETA FIELD. It will be honored unless the Management
@@ -89,13 +102,28 @@ spec:
                   for example because of an external controller is managing them,
                   like an autoscaler.
                 properties:
-                  triggers:
-                    additionalProperties:
-                      type: string
-                    description: A map of arbitrary strings that, when changed, will
-                      force the null resource to be replaced, re-running any associated
-                      provisioners.
-                    type: object
+                  path:
+                    description: work directory The path to the blobstore contents.
+                      This can be an absolute path to anywhere on the system nxrm
+                      has access to or it can be a path relative to the sonatype-work
+                      directory
+                    type: string
+                  softQuota:
+                    description: '(Block List, Max: 1) Soft quota of the blobstore
+                      (see below for nested schema) Soft quota of the blobstore'
+                    items:
+                      properties:
+                        limit:
+                          description: (Number) The limit in Bytes. Minimum value
+                            is 1000000 The limit in Bytes. Minimum value is 1000000
+                          type: number
+                        type:
+                          description: (String) The type to use such as spaceRemainingQuota,
+                            or spaceUsedQuota The type to use such as spaceRemainingQuota,
+                            or spaceUsedQuota
+                          type: string
+                      type: object
+                    type: array
                 type: object
               managementPolicies:
                 default:
@@ -258,19 +286,46 @@ spec:
             - forProvider
             type: object
           status:
-            description: ResourceStatus defines the observed state of Resource.
+            description: FileStatus defines the observed state of File.
             properties:
               atProvider:
                 properties:
+                  availableSpaceInBytes:
+                    description: (Number) Available space in Bytes Available space
+                      in Bytes
+                    type: number
+                  blobCount:
+                    description: (Number) Count of blobs Count of blobs
+                    type: number
                   id:
+                    description: (String) Used to identify resource at nexus
                     type: string
-                  triggers:
-                    additionalProperties:
-                      type: string
-                    description: A map of arbitrary strings that, when changed, will
-                      force the null resource to be replaced, re-running any associated
-                      provisioners.
-                    type: object
+                  path:
+                    description: work directory The path to the blobstore contents.
+                      This can be an absolute path to anywhere on the system nxrm
+                      has access to or it can be a path relative to the sonatype-work
+                      directory
+                    type: string
+                  softQuota:
+                    description: '(Block List, Max: 1) Soft quota of the blobstore
+                      (see below for nested schema) Soft quota of the blobstore'
+                    items:
+                      properties:
+                        limit:
+                          description: (Number) The limit in Bytes. Minimum value
+                            is 1000000 The limit in Bytes. Minimum value is 1000000
+                          type: number
+                        type:
+                          description: (String) The type to use such as spaceRemainingQuota,
+                            or spaceUsedQuota The type to use such as spaceRemainingQuota,
+                            or spaceUsedQuota
+                          type: string
+                      type: object
+                    type: array
+                  totalSizeInBytes:
+                    description: (Number) The total size of the blobstore in Bytes
+                      The total size of the blobstore in Bytes
+                    type: number
                 type: object
               conditions:
                 description: Conditions of the resource.

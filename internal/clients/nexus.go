@@ -15,7 +15,7 @@ import (
 
 	"github.com/crossplane/upjet/pkg/terraform"
 
-	"github.com/upbound/upjet-provider-template/apis/v1beta1"
+	"github.com/tuananh/provider-nexus/apis/v1beta1"
 )
 
 const (
@@ -24,7 +24,13 @@ const (
 	errGetProviderConfig    = "cannot get referenced ProviderConfig"
 	errTrackUsage           = "cannot track ProviderConfig usage"
 	errExtractCredentials   = "cannot extract credentials"
-	errUnmarshalCredentials = "cannot unmarshal template credentials as JSON"
+	errUnmarshalCredentials = "cannot unmarshal nexus credentials as JSON"
+)
+
+const (
+	nexusURL      = "url"
+	nexusUsername = "username"
+	nexusPassword = "password"
 )
 
 // TerraformSetupBuilder builds Terraform a terraform.SetupFn function which
@@ -63,10 +69,11 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 		}
 
 		// Set credentials in Terraform provider configuration.
-		/*ps.Configuration = map[string]any{
-			"username": creds["username"],
-			"password": creds["password"],
-		}*/
+		ps.Configuration = map[string]any{
+			"url":      creds[nexusURL],
+			"username": creds[nexusUsername],
+			"password": creds[nexusPassword],
+		}
 		return ps, nil
 	}
 }
