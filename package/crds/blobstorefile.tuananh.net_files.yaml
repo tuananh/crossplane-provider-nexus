@@ -4,9 +4,9 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.13.0
-  name: files.blobstore_file.tuananh.net
+  name: files.blobstorefile.tuananh.net
 spec:
-  group: blobstore_file.tuananh.net
+  group: blobstorefile.tuananh.net
   names:
     categories:
     - crossplane

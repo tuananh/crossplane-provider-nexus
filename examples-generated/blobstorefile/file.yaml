@@ -1,8 +1,8 @@
-apiVersion: blobstore_file.tuananh.net/v1alpha1
+apiVersion: blobstorefile.tuananh.net/v1alpha1
 kind: File
 metadata:
   annotations:
-    meta.upbound.io/example-id: blobstore_file/v1alpha1/file
+    meta.upbound.io/example-id: blobstorefile/v1alpha1/file
   labels:
     testing.upbound.io/example-name: file
   name: file

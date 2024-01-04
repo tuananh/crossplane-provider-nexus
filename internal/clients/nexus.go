@@ -70,6 +70,7 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 
 		// Set credentials in Terraform provider configuration.
 		ps.Configuration = map[string]any{
+			"insecure": true,
 			"url":      creds[nexusURL],
 			"username": creds[nexusUsername],
 			"password": creds[nexusPassword],

@@ -9,7 +9,7 @@ import (
 
 	"github.com/crossplane/upjet/pkg/controller"
 
-	file "github.com/tuananh/provider-nexus/internal/controller/blobstore_file/file"
+	file "github.com/tuananh/provider-nexus/internal/controller/blobstorefile/file"
 	providerconfig "github.com/tuananh/provider-nexus/internal/controller/providerconfig"
 )
 

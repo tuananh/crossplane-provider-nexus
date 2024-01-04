@@ -1,0 +1,11 @@
+apiVersion: blobstorefile.tuananh.net/v1alpha1
+kind: File
+metadata:
+  name: test-blobstore-file
+spec:
+  forProvider:
+    # description: "Managed with Crossplane Nexus Provider (generated with Upjet)"
+    # name: "test-blobstore-file"
+    path: "/nexus-data/blobs/test-blobstore-file"
+  providerConfigRef:
+    name: default

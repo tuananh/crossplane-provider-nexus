@@ -23,7 +23,7 @@ import (
 	"github.com/crossplane/upjet/pkg/terraform"
 	ctrl "sigs.k8s.io/controller-runtime"
 
-	v1alpha1 "github.com/tuananh/provider-nexus/apis/blobstore_file/v1alpha1"
+	v1alpha1 "github.com/tuananh/provider-nexus/apis/blobstorefile/v1alpha1"
 	features "github.com/tuananh/provider-nexus/internal/features"
 )
 
